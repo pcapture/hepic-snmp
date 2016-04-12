@@ -1,4 +1,4 @@
-# HEPIC-snmp
+# HEPIC-SNMP
 SNMP Gateway for HEPIC Server (dev only)
 
 Status:
