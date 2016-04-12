@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+  $Id: attributes.xml 111805 2011-07-20 17:44:17Z thauser@redhat.com $
+
+  This configuration file controls the mapping of JMX mbean attributes
+  to SNMP OIDs accessible through the snmp-adapter.
+
+  For each MBean listed, you can add an oid-prefix, that will be
+  prepended to the attribute oid. If no oid-prefix is defined,
+  the attribute oid is used literally.
+-->
+<attribute-mappings>
+
+   <!-- basic system information -->
+   <mbean name="pcapture.system:type=ServerInfo" oid-prefix=".1.3.6.1.4.1.47235.100.1.1" definition-name="pcaptureAsObjects">
+      <attribute name="ActiveThreadCount" oid=".1" snmp-type="INTEGER" max-access="read-only" description="The amount of active threads the server is handling." status="current"/>
+      <attribute name="FreeMemory" oid=".2" description="The amount of free memory on the server."/>
+      <attribute name="MaxMemory" oid=".3" description="The maximum usable amount of memory on the server."/>
+   </mbean>
+   
+   <!-- Tx Manager statistics -->
+   <mbean name="pcapture:service=TransactionManager">
+      <attribute name="CommitCount" oid=".1.3.6.1.4.1.47235.100.1.1.9"/>
+      <attribute name="RollbackCount" oid=".1.3.6.1.4.1.47235.100.1.1.10"/>
+      <attribute name="TransactionCount" oid=".1.3.6.1.4.1.47235.100.1.1.11"/>
+   </mbean>
+
+   <mbean name="pcapture.transaction:type=Calls" oid-prefix=".1.3.6.1.4.1.47235.100.1.10.1" definition-name="pcaptureAsCallsMetrics">
+      <attribute name="srdStartTime" oid=".4" snmp-type="INTEGER" description="SRD Report Time"/>
+      <attribute name="srdCounter" oid=".5" snmp-type="INTEGER" description="SRD Counter"/>
+      <attribute name="srdMessage" oid=".1000" snmp-type="DisplayString" description="messsage for SRD"/>
+      <attribute name="sssStartTime" oid=".14" snmp-type="INTEGER" description="SSS Report Time"/>
+      <attribute name="sssCounter" oid=".15" snmp-type="INTEGER" description="SSS Counter"/>
+      <attribute name="sssMessage" oid=".1010" snmp-type="DisplayString" description="messsage for SSS"/>
+   </mbean>
+
+ <!-- system information group see RFC-1213 -->
+   <mbean name="pcapture.capture:name=SnmpAgent,service=MIB2SystemGroup" oid-prefix=".1.3.6.1.2.1.1" definition-name="system">
+      <attribute name="SysDescr" oid=".1" mode="rw" description="A description of this System."/> <!-- can be modified over snmp -->
+      <attribute name="SysObjectId" oid=".2" description="The OID Denoting this system."/>
+      <attribute name="SysUpTime" oid=".3" description="The time this system has been online."/>
+      <attribute name="SysContact" oid=".4" description="The person who is admin to this system."/>
+      <attribute name="SysName" oid=".5" description="The name this system is known by."/>
+      <attribute name="SysLocation" oid=".6" description="The physical location of this system."/>
+      <attribute name="SysServices" oid=".7" description="The services provided by this system."/>
+   </mbean>
+
+</attribute-mappings>
